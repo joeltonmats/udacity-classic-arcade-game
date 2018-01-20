@@ -4,7 +4,7 @@ var Enemy = function () {
     this.x = this.getX();
     this.y = this.getY();
     this.speed = this.getSpeed();
-    this.sprite = '../img/enemy-bug.png';
+    this.sprite = '../img/kraken (1).png';
 };
 
 Enemy.prototype = Object.create(Character.prototype);

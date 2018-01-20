@@ -205,7 +205,18 @@ var Engine = (function (global) {
         '../img/Heart.png',
         '../img/Gem-Blue.png',
         '../img/Gem-Orange.png',
-        '../img/Gem-Green.png'
+        '../img/Gem-Green.png',
+        '../img/soldier_stand.png',
+        '../img/zombie_stand.png',
+        '../img/player_stand.png',
+        '../img/female_stand.png',
+        '../img/adventurer_stand.png',
+        '../img/alienPink_duck.png',
+        '../img/alienPink_walk2.png',
+        '../img/batman.png',
+        '../img/kraken (1).png'
+        
+
     ]);
 
     Resources.onReady(init);

@@ -2,7 +2,7 @@ var Player = function () {
     Character.call(this);
 
     //img for player
-    this.sprite = '../img/char-boy.png';
+    this.sprite =  '../img/batman.png';
 
     //start coordinates positions
     this.init_position_x = 404;
