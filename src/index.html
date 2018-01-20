@@ -1,83 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="This is a simple arcade clone udacity project made by Front-end Nanogree">
-    <meta name="author" content="Joelton Matos">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Hey, Welcome to Arcade Game</title>
+  <title>Arcade Game Clone</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-    <link href="library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/coming-soon.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-  </head>
+  <link href="css/style.css" rel="stylesheet">
 
-  <body>
+</head>
 
-    <div class="overlay"></div>
+<body>
 
-    <div class="masthead">
-      <div class="masthead-bg"></div>
-      <div class="container h-100">
-        <div class="row h-100">
-          <div class="col-12 my-auto">
-            <div class="masthead-content text-white py-5 py-md-0">
-              <h1 class="mb-3">Hey, Welcome!</h1>
-              <p class="mb-5">See below the game's instructions. How to Play</p>
-              <div class="input-group input-group-newsletter">
-                  <ul>
-                    <li>Arrow keys: move the character up,right,down and left</li>
-                    <li>Arrived in the sea you can level up</li>
-                    <li>Enjoy :)</li>
-                  </ul>
-              </div>
-            </div>
-          </div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Arcade Game Clone Project</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Log In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="masthead text-center text-white">
+    <div class="masthead-content">
+      <div class="container">
+        <h1 class="masthead-heading mb-0">Hey, Welcome to</h1>
+        <h2 class="masthead-subheading mb-0">game arcade clone</h2>
+        <a href="#game-center" class="btn btn-primary btn-xl rounded-pill mt-5" id="btn-player">Play</a>
+      </div>
+    </div>
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
+  </header>
+
+  <section id="game-center">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12">
+          <div id="game-area" class="text-center"></div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="social-icons">
-      <ul class="list-unstyled text-center mb-0">
-        <li class="list-unstyled-item">
-          <a href="#">
-            <i class="fa fa-twitter"></i>
-          </a>
-        </li>
-        <li class="list-unstyled-item">
-          <a href="#">
-            <i class="fa fa-facebook"></i>
-          </a>
-        </li>
-        <li class="list-unstyled-item">
-          <a href="#">
-            <i class="fa fa-instagram"></i>
-          </a>
-        </li>
-      </ul>
+  <!-- Modal Start Game-->
+  <div class="modal fade" id="startGameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Choose your hero</h4>
+        </div>
+        <div class="modal-body">
+          <img class="char-elem" src="img/char-boy.png" alt="char-boy">
+          <img class="char-elem" src="img/char-cat-girl.png" alt="char-cat-girl">
+          <img class="char-elem" src="img/char-horn-girl.png" alt="char-horn-girl">
+          <img class="char-elem" src="img/char-pink-girl.png" alt="char-pink-girl">
+          <img class="char-elem" src="img/char-princess-girl.png" alt="char-princess-girl">
+        </div>
+        <div class="modal-footer">
+          <button id="startButton" type="button" class="btn btn-default" data-dismiss="modal">Start</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="library/jquery/jquery.min.js"></script>
-    <script src="library/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Footer -->
+  <footer class="py-5 bg-black">
+    <div class="container">
+      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2018</p>
+    </div>
+    <!-- /.container -->
+  </footer>
 
-    <!-- Plugin JavaScript -->
-    <script src="library/vide/jquery.vide.min.js"></script>
+  <!-- Jquery and Bootstrap core JavaScript -->
+  <script src="library/jquery/jquery.min.js"></script>
+  <script src="library/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom scripts for this template -->
-    <script src="js/coming-soon.min.js"></script>
+  <!--Project JS-->
+  <script src="js/GameEnvironment.js"></script>
+  <script src="js/Character.js"></script>
+  <script src="js/Enemy.js"></script>
+  <script src="js/Player.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/engine.js"></script>
 
-  </body>
+</body>
 
 </html>
