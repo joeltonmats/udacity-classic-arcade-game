@@ -45,8 +45,10 @@ var Engine = (function (global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        update(dt);
-        render();
+        if (app.pause === false) {
+            update(dt);
+            render();
+        }
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -198,6 +200,12 @@ var Engine = (function (global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+        /*   var now = Date.now();
+           var dt = (now - lastTime) / 1000.0;
+   
+           update(dt);
+           render();
+           app.pause = true;*/
         app.startGame();
     }
 
@@ -210,22 +218,18 @@ var Engine = (function (global) {
         '../img/water-block.png',
         '../img/grass-block.png',
         '../img/enemy-bug.png',
-        '../img/char-boy.png',
-        '../img/char-cat-girl.png',
-        '../img/char-horn-girl.png',
-        '../img/char-pink-girl.png',
-        '../img/char-princess-girl.png',
+        //players
+        '../img/player_1.png',
+        '../img/player_2.png',
+        '../img/player_3.png',
+        '../img/player_4.png',
+        '../img/player_5.png',
+        '../img/player_6.png',
+        '../img/player_7.png',
+        '../img/player_8.png',
+        '../img/player_9.png',
+        '../img/player_10.png',
         '../img/Rock.png',
-        '../img/Heart.png',
-        '../img/Gem-Blue.png',
-        '../img/Gem-Orange.png',
-        '../img/Gem-Green.png',
-        '../img/soldier_stand.png',
-        '../img/zombie_stand.png',
-        '../img/player_stand.png',
-        '../img/female_stand.png',
-        '../img/adventurer_stand.png',
-        '../img/batman.png',
         //Common Enemies
         '../img/enemy_0.png',
         '../img/enemy_1.png',
@@ -234,9 +238,18 @@ var Engine = (function (global) {
         '../img/enemy_4.png',
         '../img/enemy_5.png',
         '../img/enemy_6.png',
-        //Itens
-        '../img/itemEvilBlock_6.png',
-        '../img/itemEvilBlock_5.png',
+        //Evil Block itens
+        '../img/itemEvilBlock_0.png',
+        '../img/itemEvilBlock_1.png',
+        '../img/itemEvilBlock_2.png',
+        '../img/itemEvilBlock_3.png',
+        '../img/itemEvilBlock_4.png',
+        //Treasures
+        '../img/treasure_0.png',
+        '../img/treasure_1.png',
+        '../img/treasure_2.png',
+        //Life
+        '../img/life.png'
     ]);
 
     Resources.onReady(init);

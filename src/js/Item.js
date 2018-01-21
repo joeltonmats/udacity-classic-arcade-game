@@ -1,7 +1,9 @@
 var Item = function () {
     GameEnvironment.call(this);
+
     this.x = this.getXCoord();
     this.y = this.getY();
+
     //generates a key to work with map's item
     this.key = this.x.toString() + this.y.toString();
     this.checkCoords();
@@ -10,9 +12,11 @@ var Item = function () {
 Item.prototype = Object.create(GameEnvironment.prototype);
 Item.prototype.constructor = Item;
 
-//validates that another item doesn't have the same position
-//if it does, new x and y coordenates are generated
-//as well as a new key
+/**
+ * Validates that another item doesn't have the same position
+ * if it does, new x and y coordenates are generated
+ * and assign to new key.
+ */
 Item.prototype.checkCoords = function () {
     while (app.allItems.has(this.key)) {
         this.x = this.getXCoord();
@@ -21,11 +25,15 @@ Item.prototype.checkCoords = function () {
     }
 };
 
+/**
+ * Generates the X coordenate to
+ * itens positions in game area.
+ */
 Item.prototype.getXCoord = function () {
     var num = 0;
     switch (Math.floor(Math.random() * 10)) {
         case 0:
-            num = 0;
+            num = 12;
             break;
         case 1:
             num = 113;// 101;
@@ -37,7 +45,7 @@ Item.prototype.getXCoord = function () {
             num = 315; //303;
             break;
         case 4:
-            num =  416; //404;
+            num = 416; //404;
             break;
         case 5:
             num = 517;// 505;

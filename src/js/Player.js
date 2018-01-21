@@ -2,7 +2,7 @@ var Player = function () {
     Character.call(this);
 
     //img for player
-    this.sprite = '../img/batman.png';
+    this.sprite = '../img/player_1.png';
 
     //start coordinates positions
     this.INIT_POSITION_X = 416; //404
@@ -38,8 +38,7 @@ Player.prototype.update = function () {
     }
 
     /* flux control to player limits in game area */
-  console.log('this.x', this.x);
-   console.log('this.y', this.y);
+    console.log('this.y', this.y);
     if (this.y >= this.INIT_POSITION_Y)
         this.y = this.INIT_POSITION_Y;
 
@@ -52,14 +51,8 @@ Player.prototype.update = function () {
     /* Manage evilBlock */
     if (app.allItems.size > 0) {
         app.allItems.forEach(function (item) {
-            console.log('item', item);
-            console.log('this.x', this.x);
-            console.log('this.y', this.y);// 60 - 110 = -50 |  143 - 200 =  -57 | 226 - 290 =-64
             if (this.x === item.x && (item.y - this.y >= -64 && item.y - this.y <= 0)) {
-                console.log('entrou2');
                 if (item instanceof ItemEvilBlock) {
-                    //if item is a Rock, return player to previous position
-                    //giving the efect of player being blocked by rock
                     this.x = this.x - this.xplus;
                     this.y = this.y - this.yplus;
                 }
@@ -68,6 +61,9 @@ Player.prototype.update = function () {
     }
 };
 
+/**
+ * Moves player through the playing area
+ */
 Player.prototype.handleInput = function (key) {
     this.xplus = 0;
     this.yplus = 0;

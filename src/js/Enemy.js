@@ -4,7 +4,7 @@ var Enemy = function () {
     this.x = this.getX();
     this.y = this.getY();
     this.speed = this.getSpeed();
-    this.sprite = '../img/kraken (1).png';
+    this.sprite = '../img/enemy_0.png';
 };
 
 Enemy.prototype = Object.create(Character.prototype);
@@ -34,6 +34,8 @@ var EnemyCommon = function () {
     this.y = this.getY();
     this.speed = this.getSpeed();
     this.getRandomCommonEnemy();
+
+    this.increaseYCoordinate(this.y);
     // = this.getRandomNumberToGenerateEnemy(); //'../img/kraken (1).png';
 };
 
@@ -55,7 +57,19 @@ EnemyCommon.prototype.update = function (dt) {
         this.x = this.getX();
         this.y = this.getY();
         this.speed = this.getSpeed();
+
+        this.increaseYCoordinate(this.y);
+
     }
+};
+
+EnemyCommon.prototype.increaseYCoordinate = function () {
+    if (this.y === 60)
+        this.y += 50;
+    else if (this.y === 143)
+        this.y += 57;
+    else if (this.y === 226)
+        this.y += 64;
 };
 
 

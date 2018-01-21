@@ -1,8 +1,9 @@
 .game-data {
-    display: inline-block;
-    width: 33%;
     color: #0192B5;
     font-family: "brandon-grotesque", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 li {
@@ -23,11 +24,11 @@ h2 {
     text-align: center;
 }
 
-.char-elem {
+.player-option {
     cursor: pointer;
 }
 
-.char-selected {
+.player-selected {
     background-color: #A7F7A2;
 }
 
