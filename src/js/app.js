@@ -16,6 +16,29 @@ app.randomNum = function () {
     return num;
 };
 
+app.levelUp = function () {
+    var outsideThis = this;
+    this.level++;
+
+    // when create commons enemies
+    if (this.level <= 8 || (this.level >= 25 && this.level % 5 === 0))
+        this.createEnemies('common');
+ var itemEvilBlock = new ItemEvilBlock();
+        this.allItems.set(itemEvilBlock.key, itemEvilBlock);
+        
+
+    // when it is necessary generate blocks
+    if ((this.level >= 10 && this.level < 26) && this.level % 2 === 0) {
+        var itemEvilBlock = new ItemEvilBlock();
+        this.allItems.set(itemEvilBlock.key, itemEvilBlock);
+    }
+
+    if(this.level > 30) {
+        this.maxSpeed = 500;
+    }
+
+}
+
 app.allEnemies = [];
 app.player = new Player();
 
@@ -23,8 +46,12 @@ app.player = new Player();
  * Add new enemy instances
  * in allEnemies array;
  */
-app.createEnemies = function () {
-    this.allEnemies.push(new Enemy());
+app.createEnemies = function (whichEnemy) {
+
+    if (whichEnemy == 'common')
+        this.allEnemies.push(new EnemyCommon());
+    else
+        this.allEnemies.push(new EnemyCommon());
 }
 
 

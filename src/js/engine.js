@@ -9,7 +9,7 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
+ * This engine makes the canvas' context (ctx) object globally available to make
  * writing app.js a little simpler to work with.
  */
 
@@ -24,8 +24,8 @@ var Engine = (function (global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 1000;
-    canvas.height = 620;
+    canvas.width = 1010;
+    canvas.height = 600;
 
     $('#game-area').append(canvas);
 
@@ -83,9 +83,13 @@ var Engine = (function (global) {
         checkCollisions();
     }
 
+    /**
+     * This function is necessary to handle
+     * collisions in game executation
+     */
     function checkCollisions() {
 
-        //check position of player with each enemy in array
+        /*//check position of player with each enemy in array
         app.allEnemies.forEach(function (enemy) {
             var topEnemyX = enemy.x + 70;
             var topPlayerX = app.player.x + 70;
@@ -101,7 +105,7 @@ var Engine = (function (global) {
                 };
             };
 
-        });
+        });*/
     }
 
     /* This is called by the update function and loops through all of the
@@ -169,6 +173,13 @@ var Engine = (function (global) {
      */
     function renderEntities() {
 
+        /**
+         * Rendering allItens required
+         */
+        app.allItems.forEach(function (item) {
+            item.render();
+        })
+
         /* Rendering allEnemies by call
          * the render function.
          */
@@ -176,6 +187,9 @@ var Engine = (function (global) {
             enemy.render();
         });
 
+        /**
+         * Player render
+         */
         app.player.render();
     }
 
@@ -211,12 +225,18 @@ var Engine = (function (global) {
         '../img/player_stand.png',
         '../img/female_stand.png',
         '../img/adventurer_stand.png',
-        '../img/alienPink_duck.png',
-        '../img/alienPink_walk2.png',
         '../img/batman.png',
-        '../img/kraken (1).png'
-        
-
+        //Common Enemies
+        '../img/enemy_0.png',
+        '../img/enemy_1.png',
+        '../img/enemy_2.png',
+        '../img/enemy_3.png',
+        '../img/enemy_4.png',
+        '../img/enemy_5.png',
+        '../img/enemy_6.png',
+        //Itens
+        '../img/itemEvilBlock_6.png',
+        '../img/itemEvilBlock_5.png',
     ]);
 
     Resources.onReady(init);

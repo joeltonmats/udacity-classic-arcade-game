@@ -2,27 +2,27 @@ var Player = function () {
     Character.call(this);
 
     //img for player
-    this.sprite =  '../img/batman.png';
+    this.sprite = '../img/batman.png';
 
     //start coordinates positions
-    this.init_position_x = 404;
-    this.init_position_y = 390;
+    this.INIT_POSITION_X = 416; //404
+    this.INIT_POSITION_Y = 470; //390;
 
     // coordinates moves
-    this.x = this.init_position_x;
-    this.y = this.init_position_y;
+    this.x = this.INIT_POSITION_X;
+    this.y = this.INIT_POSITION_Y;
 
-    //xplus and y plus used to manage rock interactivity
-    //this.xplus = 0;
-    //this.yplus = 0;
+    //xplus and y plus used to manage itemEvilBlock interactivity
+    this.xplus = 0;
+    this.yplus = 0;
 
     // max limits to move player right and left
-    this.limit_right = 909;
-    this.limit_left = 0;
+    this.LIMIT_RIGHT = 921;//909
+    this.LIMIT_LEFT = 12;
 
     // jump coordinates for player movement
-    this.jump_move_y = 85;
-    this.jump_move_x = 105;
+    this.JUMP_MOVE_X = 101; //83
+    this.JUMP_MOVE_Y = 90; //101
 };
 
 Player.prototype = Object.create(Character.prototype);
@@ -30,46 +30,64 @@ Player.prototype.constructor = Player;
 
 Player.prototype.update = function () {
 
-    //player arrives on water
-    console.log('this.y', this.y);
-    if (this.y <= -25) {
-        this.x = this.init_position_x;
-        this.y = this.init_position_y;
-        //app.levelUp();
+    //player arrives on wate
+    if (this.y === 20) {
+        this.x = this.INIT_POSITION_X;
+        this.y = this.INIT_POSITION_Y;
+        app.levelUp();
     }
 
     /* flux control to player limits in game area */
+  console.log('this.x', this.x);
+   console.log('this.y', this.y);
+    if (this.y >= this.INIT_POSITION_Y)
+        this.y = this.INIT_POSITION_Y;
 
-    if (this.y >= this.init_position_y)
-        this.y = this.init_position_y;
+    if (this.x <= this.LIMIT_LEFT)
+        this.x = this.LIMIT_LEFT;
 
-    if (this.x <= this.limit_left)
-        this.x = this.limit_left;
+    if (this.x >= this.LIMIT_RIGHT)
+        this.x = this.LIMIT_RIGHT;
 
-    if (this.x >= this.limit_right)
-        this.x = this.limit_right;
+    /* Manage evilBlock */
+    if (app.allItems.size > 0) {
+        app.allItems.forEach(function (item) {
+            console.log('item', item);
+            console.log('this.x', this.x);
+            console.log('this.y', this.y);// 60 - 110 = -50 |  143 - 200 =  -57 | 226 - 290 =-64
+            if (this.x === item.x && (item.y - this.y >= -64 && item.y - this.y <= 0)) {
+                console.log('entrou2');
+                if (item instanceof ItemEvilBlock) {
+                    //if item is a Rock, return player to previous position
+                    //giving the efect of player being blocked by rock
+                    this.x = this.x - this.xplus;
+                    this.y = this.y - this.yplus;
+                }
+            }
+        }, this);
+    }
 };
 
 Player.prototype.handleInput = function (key) {
-    //this.xplus = 0;
-    //this.yplus = 0;
+    this.xplus = 0;
+    this.yplus = 0;
 
     switch (key) {
         case 'left':
-            this.x = this.x - this.jump_move_x;
-            //this.xplus = - this.PLAYER_X_MOVE;
+            this.x = this.x - this.JUMP_MOVE_X;
+            this.xplus = - this.JUMP_MOVE_X;
             break;
         case 'up':
-            this.y = this.y - this.jump_move_y;
-            //this.yplus = - this.PLAYER_Y_MOVE;
+            this.y = this.y - this.JUMP_MOVE_Y;
+            this.yplus = - this.JUMP_MOVE_Y;
             break;
         case 'right':
-            this.x = this.x + this.jump_move_x;
-            //this.xplus = this.PLAYER_X_MOVE;
+            this.x = this.x + this.JUMP_MOVE_X;
+            this.xplus = this.JUMP_MOVE_X;
             break;
         case 'down':
-            this.y = this.y + this.jump_move_y;
-            //this.yplus = this.PLAYER_Y_MOVE;
+            this.y = this.y + this.JUMP_MOVE_Y;
+            this.yplus = this.JUMP_MOVE_Y;
             break;
     }
 };
