@@ -38,7 +38,7 @@ Player.prototype.update = function () {
     }
 
     /* flux control to player limits in game area */
-    console.log('this.y', this.y);
+
     if (this.y >= this.INIT_POSITION_Y)
         this.y = this.INIT_POSITION_Y;
 
@@ -55,6 +55,17 @@ Player.prototype.update = function () {
                 if (item instanceof ItemEvilBlock) {
                     this.x = this.x - this.xplus;
                     this.y = this.y - this.yplus;
+                } else {
+                    if (item instanceof Treasure) {
+                        app.points = app.points + item.TREASURE_VALUE;
+                        $('#points').text(app.points + 'points');
+                        app.allItems.delete(item.key);
+                    } else {
+                        if (item instanceof Life) {
+                            app.addLife(true);
+                            app.allItems.delete(item.key);
+                        }
+                    }
                 }
             }
         }, this);

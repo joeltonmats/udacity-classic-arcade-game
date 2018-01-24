@@ -1,6 +1,6 @@
 var Life = function () {
-    this.sprite = '../img/life.png';
     Item.call(this);
+    this.sprite = '../img/life.png';
 };
 
 Life.prototype = Object.create(Item.prototype);

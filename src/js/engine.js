@@ -45,7 +45,7 @@ var Engine = (function (global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        if (app.pause === false) {
+        if (!app.pause) {
             update(dt);
             render();
         }
@@ -91,7 +91,7 @@ var Engine = (function (global) {
      */
     function checkCollisions() {
 
-        /*//check position of player with each enemy in array
+        //check position of player with each enemy in array
         app.allEnemies.forEach(function (enemy) {
             var topEnemyX = enemy.x + 70;
             var topPlayerX = app.player.x + 70;
@@ -100,14 +100,12 @@ var Engine = (function (global) {
 
             if (enemy.y >= app.player.y && enemy.y <= topPlayerY) {
                 if ((app.player.x <= topEnemyX && app.player.x >= enemy.x) || (topPlayerX >= enemy.x && topPlayerX <= topEnemyX)) {
-                    app.player.x = 404;
-                    app.player.y = 390;
-                    //player looses one life
+                    app.player.x = 416;
+                    app.player.y = 470;
                     app.addLife(false);
                 };
             };
-
-        });*/
+        });
     }
 
     /* This is called by the update function and loops through all of the
@@ -200,12 +198,12 @@ var Engine = (function (global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        /*   var now = Date.now();
-           var dt = (now - lastTime) / 1000.0;
-   
-           update(dt);
-           render();
-           app.pause = true;*/
+        var now = Date.now();
+        var dt = (now - lastTime) / 1000.0;
+
+        update(dt);
+        render();
+        //app.pause = true;
         app.startGame();
     }
 

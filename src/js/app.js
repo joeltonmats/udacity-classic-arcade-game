@@ -9,7 +9,6 @@ app.maxSpeed = 400;
 app.allItems = new Map();
 app.LEVEL_UP_POINTS = 100;
 
-
 //function that generate between choose randomly between 0 - 3
 app.randomNum = function () {
     var num = Math.floor((Math.random() * 10) / 3);
@@ -19,7 +18,7 @@ app.randomNum = function () {
 /**
  * Delete all treasure and hearts don't got.
  */
-app.deleteTreasureAndLifeReaming = function () {
+app.deleteTreasureAndLifeRemaning = function () {
     this.allItems.forEach(function (item) {
         if (item instanceof Treasure || item instanceof Life) {
             this.allItems.delete(item.key);
@@ -28,16 +27,33 @@ app.deleteTreasureAndLifeReaming = function () {
 };
 
 app.addLife = function (up) {
-    /*  var outsideThis = this;
-  
-      if (up) {
-          if (this.lifes < 3) {
-              this.lifes++;
-          }
-      } else {
-          this.lifes--;
-      }*/
-}
+    var outsideThis = this;
+    var heartElements = $('.life-wrapper').children();
+    var heartElement;
+
+    if (up) {
+        if (this.lifes < 3) {
+            heartElement = heartElements[this.lifes];
+            $(heartElement).children().removeClass('fa fa-heart-o');
+            $(heartElement).children().addClass('fa fa-heart');
+            this.lifes++;
+        }
+    } else {
+        this.lifes--;
+        heartElement = heartElements[this.lifes];
+        $(heartElement).children().removeClass('fa fa-heart');
+        $(heartElement).children().addClass('fa fa-heart-o');
+
+        if (this.lifes === 0) {
+            this.pause = true;
+            this.gameOverImg();
+            $('#gameOverModal').modal({ backdrop: 'static', keyboard: false, show: true });
+            $('.restart').click(function () {
+                outsideThis.restartGame();
+            });
+        }
+    }
+};
 
 app.levelUp = function () {
     var outsideThis = this;
@@ -49,7 +65,7 @@ app.levelUp = function () {
     $('#points').text(outsideThis.points + ' points');
 
     //when delete all treasure and lifes didn't get
-    this.deleteTreasureAndLifeReaming();
+    this.deleteTreasureAndLifeRemaning();
 
     //when to create lifes
     var life = new Life();
@@ -79,14 +95,14 @@ app.levelUp = function () {
         this.maxSpeed = 500;
     }
 
-    //if max level reached, won Modal is displayed. Player can
-    //choose to start a new game
+    //if max level came, so the Win Modal is displayed. Player can must choose between start or new game.
     if (this.level === 40) {
         this.pause = true;
-        /*$("#wonModal").modal('show');
-        $(".restart").click(function () {
-            that.restart();
-        });*/
+        $("#winModal").modal({ backdrop: 'static', keyboard: false, show: true });
+        $("#playAgain").click(function () {
+            outsideThis.gameWin();
+            outsideThis.restartGame();
+        });
     }
 
 };
@@ -107,13 +123,49 @@ app.createEnemies = function (whichEnemy) {
 }
 
 
+app.gameOverImg = function () {
+    var imageGameOver = $("#game-over-img");
+    var r = this.randomNum();
+    switch (r) {
+        case 0:
+            $(imageGameOver).attr('src', '../img/game-over-1.gif');
+            break;
+        case 1:
+            $(imageGameOver).attr('src', '../img/game-over-2.gif');
+            break;
+        case 2:
+            $(imageGameOver).attr('src', '../img/game-over-3.gif');
+            break;
+        default:
+            $(imageGameOver).attr('src', '../img/game-over.gif');
+    }
+}
+
+app.gameWin = function () {
+    var imageGameWin = $("#game-win-img");
+    var r = this.randomNum();
+    switch (r) {
+        case 0:
+            $(imageGameWin).attr('src', '../img/end-game-1.gif');
+            break;
+        case 1:
+            $(imageGameWin).attr('src', '../img/end-game-2.gif');
+            break;
+        case 2:
+            $(imageGameWin).attr('src', '../img/end-game-3.gif');
+            break;
+        default:
+            $(imageGameWin).attr('src', '../img/end-game.gif');
+    }
+}
+
 
 /**
  * Load modal to start game
  */
 app.loadModalStartFame = function () {
-    console.log('chegueii');
-    $("#startGameModal").modal('show');
+    var options = { backdrop: 'static', keyboard: false, show: true };
+    $("#startGameModal").modal(options);
 }
 
 app.startGame = function () {
@@ -121,12 +173,7 @@ app.startGame = function () {
     var outsideThis = this;
     var playerSelected = null;
 
-    /**
-     * Listen to btn-player click
-     */
-    $('#btn-player').click(function () {
-        outsideThis.loadModalStartFame();
-    });
+    outsideThis.loadModalStartFame();
 
     $('.player-option').click(function () {
 
@@ -143,6 +190,46 @@ app.startGame = function () {
         outsideThis.createEnemies();
         outsideThis.pause = false;
     });
+
+    /**
+       * Listen to btn-player click
+       */
+    $('#btn-player').click(function () {
+        outsideThis.loadModalStartFame();
+    });
+
+    $('#restartButton').click(function () {
+        outsideThis.loadModalStartFame();
+    });
+};
+
+app.restartGame = function () {
+    var outsideThis = this;
+    this.level = 1;
+    this.lifes = 3;
+    this.points = 0;
+    this.maxSpeed = 400;
+    this.allItems.clear();
+    this.allEnemies = [];
+    this.player.x = 416;
+    this.player.y = 470;
+
+    //DOM Properties
+    //update DOM
+    $('#level').text('Level ' + outsideThis.level);
+    $('#points').text(outsideThis.points + ' points');
+    var heartElements = $('.life-wrapper').children();
+
+    for (var i = 0; i < 3; i++) {
+        var heartElement = heartElements[i];
+        //when used toggleClass found a bug
+        $(heartElement).removeClass('fa fa-heart-o');
+        $(heartElement).addClass('fa fa-heart');
+
+    }
+
+    this.startGame();
+
 }
 
 
@@ -153,9 +240,22 @@ document.addEventListener('keyup', function (e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        32: 'space'
     };
 
-    app.player.handleInput(allowedKeys[e.keyCode]);
+    //show or hide pause game modal
+    if (e.keyCode === 32) {
+        app.pause = !app.pause;
+        if (app.pause === false) {
+            $("#pauseModal").modal('hide');
+        } else {
+            $("#pauseModal").modal({ backdrop: 'static', keyboard: false, show: true });
+        }
+    }
+
+    if (!app.pause) {
+        app.player.handleInput(allowedKeys[e.keyCode]);
+    }
 });
 

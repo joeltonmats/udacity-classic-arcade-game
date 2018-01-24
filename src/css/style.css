@@ -29,9 +29,31 @@ h2 {
 }
 
 .player-selected {
-    background-color: #A7F7A2;
+    background-color: #ee0979;
 }
 
 #game-over-img {
     max-width: 400px;
+}
+
+.sides span {
+    margin-right: 10px;
+}
+
+.axis span {
+    margin-right: 10px;
+}
+
+.others i {
+    margin-right: 30px;
+}
+
+.others span {
+    font-weight: bold;
+}
+
+.sides i,
+.axis i,
+.others i {
+    color: #ee0979;
 }
