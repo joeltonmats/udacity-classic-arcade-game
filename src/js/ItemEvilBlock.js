@@ -7,7 +7,6 @@ ItemEvilBlock.prototype = Object.create(Item.prototype);
 ItemEvilBlock.prototype.constructor = ItemEvilBlock;
 
 ItemEvilBlock.prototype.getRandomItemEvilBlock = function () {
-
-    var num = Math.floor((Math.random() * 5));
+    var num = app.getRandomNumber(0, 4);
     this.sprite = '../img/itemEvilBlock_' + num + '.png';
 }

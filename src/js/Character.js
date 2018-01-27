@@ -11,7 +11,7 @@ Character.prototype.render = function () {
 
 Character.prototype.getX = function () {
     var num = 0;
-    switch (app.randomNum()) {
+    switch (app.getRandomNumber(0, 2)) {
         case 0:
             num = -150;
             break;

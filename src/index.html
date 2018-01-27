@@ -47,6 +47,7 @@
     </nav>
   </header>
 
+  <!--game area-->
   <main>
     <section id="game-center">
       <div class="container-fluid">
@@ -75,14 +76,15 @@
       </div>
     </section>
   </main>
+  <!--end game area-->
 
 
   <!--Start Game Modal-->
-  <div class="modal fade" id="startGameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="startGameModal" tabindex="-1" role="dialog" aria-labelledby="startGameModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Choose your Player</h4>
+          <h4 class="modal-title" id="choosePlayer">Choose your Player</h4>
         </div>
         <div class="modal-body  text-center">
           <div class="col-lg-12">
@@ -128,11 +130,11 @@
   </div>
 
   <!--Win Modal -->
-  <div class="modal fade" id="winModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="winModal" tabindex="-1" role="dialog" aria-labelledby="winModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title" id="myModalLabel">Congratulations, You Won.</h1>
+          <h1 class="modal-title" id="successMessage">Congratulations, You Won.</h1>
         </div>
         <div class="modal-body">
           <div class="text-center">
@@ -147,11 +149,11 @@
   </div>
 
   <!--End Modal-->
-  <div class="modal fade" id="gameOverModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="gameOverModal" tabindex="-1" role="dialog" aria-labelledby="gameOverModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title" id="myModalLabel">Game Over</h1>
+          <h1 class="modal-title" id="failMessage">Game Over</h1>
         </div>
         <div class="modal-body">
           <div class="text-center">
@@ -166,11 +168,12 @@
   </div>
 
   <!--Pause Modal-->
-  <div class="modal fade" id="pauseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="pauseModal" tabindex="-1" role="dialog" aria-labelledby="pauseModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
           <h1 class="text-center">Pause</h1>
+          <p>Press space keyboard to continue..</p>
           <div class="text-center">
             <img id="game-over-img" src="./img/pause.gif" alt="Game Over" class="img-fluid">
           </div>

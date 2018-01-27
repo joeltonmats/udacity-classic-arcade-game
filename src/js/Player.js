@@ -5,8 +5,8 @@ var Player = function () {
     this.sprite = '../img/player_1.png';
 
     //start coordinates positions
-    this.INIT_POSITION_X = 416; //404
-    this.INIT_POSITION_Y = 470; //390;
+    this.INIT_POSITION_X = 416;
+    this.INIT_POSITION_Y = 470;
 
     // coordinates moves
     this.x = this.INIT_POSITION_X;
@@ -17,12 +17,12 @@ var Player = function () {
     this.yplus = 0;
 
     // max limits to move player right and left
-    this.LIMIT_RIGHT = 921;//909
+    this.LIMIT_RIGHT = 921;
     this.LIMIT_LEFT = 12;
 
     // jump coordinates for player movement
-    this.JUMP_MOVE_X = 101; //83
-    this.JUMP_MOVE_Y = 90; //101
+    this.JUMP_MOVE_X = 101;
+    this.JUMP_MOVE_Y = 90;
 };
 
 Player.prototype = Object.create(Character.prototype);
@@ -73,7 +73,7 @@ Player.prototype.update = function () {
 };
 
 /**
- * Moves player through the playing area
+ * Moves player through the game area
  */
 Player.prototype.handleInput = function (key) {
     this.xplus = 0;

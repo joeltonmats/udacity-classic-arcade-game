@@ -13,9 +13,9 @@ Item.prototype = Object.create(GameEnvironment.prototype);
 Item.prototype.constructor = Item;
 
 /**
- * Validates that another item doesn't have the same position
- * if it does, new x and y coordenates are generated
- * and assign to new key.
+ * Validates that one item does not the same position another item
+ * if it does,then it is generate a  new x and y coordenates to
+ * assign to new key.
  */
 Item.prototype.checkCoords = function () {
     while (app.allItems.has(this.key)) {
@@ -31,36 +31,36 @@ Item.prototype.checkCoords = function () {
  */
 Item.prototype.getXCoord = function () {
     var num = 0;
-    switch (Math.floor(Math.random() * 10)) {
+    switch (app.getRandomNumber(0,9)) {
         case 0:
             num = 12;
             break;
         case 1:
-            num = 113;// 101;
+            num = 113;
             break;
         case 2:
-            num = 214;// 202;
+            num = 214;
             break;
         case 3:
-            num = 315; //303;
+            num = 315;
             break;
         case 4:
-            num = 416; //404;
+            num = 416;
             break;
         case 5:
-            num = 517;// 505;
+            num = 517;
             break;
         case 6:
-            num = 618;//606;
+            num = 618;
             break;
         case 7:
-            num = 7191;//707;
+            num = 7191;
             break;
         case 8:
-            num = 820; // 808;
+            num = 820;
             break;
         case 9:
-            num = 921;//909;
+            num = 921;
             break;
     }
     return num;

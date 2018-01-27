@@ -203,7 +203,7 @@ var Engine = (function (global) {
 
         update(dt);
         render();
-        //app.pause = true;
+        app.pause = true;
         app.startGame();
     }
 
@@ -212,10 +212,10 @@ var Engine = (function (global) {
      * all of these images are properly loaded our game will start.
      */
     Resources.load([
+        // grounds
         '../img/stone-block.png',
         '../img/water-block.png',
         '../img/grass-block.png',
-        '../img/enemy-bug.png',
         //players
         '../img/player_1.png',
         '../img/player_2.png',
@@ -236,6 +236,11 @@ var Engine = (function (global) {
         '../img/enemy_4.png',
         '../img/enemy_5.png',
         '../img/enemy_6.png',
+        '../img/enemy_7.png',
+        '../img/enemy_8.png',
+        '../img/enemy_9.png',
+        '../img/enemy_10.png',
+        '../img/enemy_11.png',
         //Evil Block itens
         '../img/itemEvilBlock_0.png',
         '../img/itemEvilBlock_1.png',

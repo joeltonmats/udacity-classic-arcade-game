@@ -8,12 +8,43 @@ app.points = 0;
 app.maxSpeed = 400;
 app.allItems = new Map();
 app.LEVEL_UP_POINTS = 100;
+app.modalOptions = { backdrop: 'static', keyboard: false, show: true };
+app.allEnemies = [];
+app.player = new Player();
 
-//function that generate between choose randomly between 0 - 3
-app.randomNum = function () {
-    var num = Math.floor((Math.random() * 10) / 3);
-    return num;
+
+/**
+ * Generates random numbers between a interval
+ *  @param min - Minimum value(inclusive)
+ *  @param max - Maximum value(incluvise)
+ */
+app.getRandomNumber = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+/**
+ * DOM Control  to add/remove heart icon
+ */
+app.toggleLife = function (up, qtdLife) {
+    var heartElements = $('.life-wrapper').children();
+    var heartElement = heartElements[qtdLife];
+
+    if (up) {
+        $(heartElement).children().removeClass('fa fa-heart-o');
+        $(heartElement).children().addClass('fa fa-heart');
+    } else {
+        $(heartElement).children().removeClass('fa fa-heart');
+        $(heartElement).children().addClass('fa fa-heart-o');
+    }
+
+};
+
+/**
+ * Load modal to start game
+ */
+app.loadModalStartFame = function () {
+    $("#startGameModal").modal(app.modalOptions);
+}
 
 /**
  * Delete all treasure and hearts don't got.
@@ -28,26 +59,20 @@ app.deleteTreasureAndLifeRemaning = function () {
 
 app.addLife = function (up) {
     var outsideThis = this;
-    var heartElements = $('.life-wrapper').children();
-    var heartElement;
 
     if (up) {
         if (this.lifes < 3) {
-            heartElement = heartElements[this.lifes];
-            $(heartElement).children().removeClass('fa fa-heart-o');
-            $(heartElement).children().addClass('fa fa-heart');
+            this.toggleLife(up, this.lifes);
             this.lifes++;
         }
     } else {
         this.lifes--;
-        heartElement = heartElements[this.lifes];
-        $(heartElement).children().removeClass('fa fa-heart');
-        $(heartElement).children().addClass('fa fa-heart-o');
+        this.toggleLife(up, this.lifes);
 
         if (this.lifes === 0) {
             this.pause = true;
             this.gameOverImg();
-            $('#gameOverModal').modal({ backdrop: 'static', keyboard: false, show: true });
+            $('#gameOverModal').modal(app.modalOptions);
             $('.restart').click(function () {
                 outsideThis.restartGame();
             });
@@ -76,7 +101,7 @@ app.levelUp = function () {
 
     // when to create commons enemies
     if (this.level <= 8 || (this.level >= 25 && this.level % 5 === 0))
-        this.createEnemies('common');
+        this.createEnemies();
 
     // when it is necessary generate blocks
     if ((this.level >= 10 && this.level < 26) && this.level % 2 === 0) {
@@ -98,7 +123,7 @@ app.levelUp = function () {
     //if max level came, so the Win Modal is displayed. Player can must choose between start or new game.
     if (this.level === 40) {
         this.pause = true;
-        $("#winModal").modal({ backdrop: 'static', keyboard: false, show: true });
+        $("#winModal").modal(app.modalOptions);
         $("#playAgain").click(function () {
             outsideThis.gameWin();
             outsideThis.restartGame();
@@ -107,26 +132,23 @@ app.levelUp = function () {
 
 };
 
-app.allEnemies = [];
-app.player = new Player();
-
 /**
  * Add new enemy instances
  * in allEnemies array;
  */
-app.createEnemies = function (whichEnemy) {
-
-    if (whichEnemy == 'common')
-        this.allEnemies.push(new EnemyCommon());
-    else
-        this.allEnemies.push(new EnemyCommon());
+app.createEnemies = function () {
+    this.allEnemies.push(new Enemy());
 }
 
-
+/**
+ * When game over, a random gif is sorted
+ * 
+ */
 app.gameOverImg = function () {
     var imageGameOver = $("#game-over-img");
-    var r = this.randomNum();
-    switch (r) {
+    var number = this.getRandomNumber(0, 3);
+
+    switch (number) {
         case 0:
             $(imageGameOver).attr('src', '../img/game-over-1.gif');
             break;
@@ -141,10 +163,16 @@ app.gameOverImg = function () {
     }
 }
 
+
+/**
+ * When player win, a random gif is sorted to congratulations.
+ *
+ */
 app.gameWin = function () {
     var imageGameWin = $("#game-win-img");
-    var r = this.randomNum();
-    switch (r) {
+    var number = this.getRandomNumber(0, 3);
+
+    switch (number) {
         case 0:
             $(imageGameWin).attr('src', '../img/end-game-1.gif');
             break;
@@ -159,15 +187,9 @@ app.gameWin = function () {
     }
 }
 
-
 /**
- * Load modal to start game
+ * Begin function to start a game.
  */
-app.loadModalStartFame = function () {
-    var options = { backdrop: 'static', keyboard: false, show: true };
-    $("#startGameModal").modal(options);
-}
-
 app.startGame = function () {
 
     var outsideThis = this;
@@ -187,15 +209,9 @@ app.startGame = function () {
     });
 
     $('#startButton').off('click').on('click', function () {
+        console.log('entrou');
         outsideThis.createEnemies();
         outsideThis.pause = false;
-    });
-
-    /**
-       * Listen to btn-player click
-       */
-    $('#btn-player').click(function () {
-        outsideThis.loadModalStartFame();
     });
 
     $('#restartButton').click(function () {
@@ -223,14 +239,22 @@ app.restartGame = function () {
     for (var i = 0; i < 3; i++) {
         var heartElement = heartElements[i];
         //when used toggleClass found a bug
-        $(heartElement).removeClass('fa fa-heart-o');
-        $(heartElement).addClass('fa fa-heart');
+        $(heartElement).children().removeClass('fa fa-heart-o');
+        $(heartElement).children().addClass('fa fa-heart');
 
     }
 
     this.startGame();
 
 }
+
+/**
+ *
+ * Listen user click to play again any moment.
+ */
+$('#btn-player').click(function () {
+    app.restartGame();
+});
 
 
 // This listens for key presses and sends the keys to your
@@ -250,7 +274,7 @@ document.addEventListener('keyup', function (e) {
         if (app.pause === false) {
             $("#pauseModal").modal('hide');
         } else {
-            $("#pauseModal").modal({ backdrop: 'static', keyboard: false, show: true });
+            $("#pauseModal").modal(app.modalOptions);
         }
     }
 
