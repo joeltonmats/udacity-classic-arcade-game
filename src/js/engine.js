@@ -100,6 +100,7 @@ var Engine = (function (global) {
 
             if (enemy.y >= app.player.y && enemy.y <= topPlayerY) {
                 if ((app.player.x <= topEnemyX && app.player.x >= enemy.x) || (topPlayerX >= enemy.x && topPlayerX <= topEnemyX)) {
+                    app.blocSound.play();
                     app.player.x = 416;
                     app.player.y = 470;
                     app.addLife(false);

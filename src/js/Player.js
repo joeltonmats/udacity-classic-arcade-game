@@ -32,6 +32,7 @@ Player.prototype.update = function () {
 
     //player arrives on wate
     if (this.y === 20) {
+        app.levelComplete.play();
         this.x = this.INIT_POSITION_X;
         this.y = this.INIT_POSITION_Y;
         app.levelUp();
@@ -58,8 +59,13 @@ Player.prototype.update = function () {
                 } else {
                     if (item instanceof Treasure) {
                         app.points = app.points + item.TREASURE_VALUE;
-                        $('#points').text(app.points + 'points');
+                        $('#points').text(app.points);
                         app.allItems.delete(item.key);
+
+                        //animation
+                        $('.points-wrapper').addClass('animated slideInDown')
+                        window.setTimeout(function () { $('.points-wrapper').removeClass('animated slideInDown '); }, 500);
+
                     } else {
                         if (item instanceof Life) {
                             app.addLife(true);

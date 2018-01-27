@@ -11,7 +11,10 @@ app.LEVEL_UP_POINTS = 100;
 app.modalOptions = { backdrop: 'static', keyboard: false, show: true };
 app.allEnemies = [];
 app.player = new Player();
-
+app.blocSound = new Audio('../audio/block.wav');
+app.levelComplete = new Audio('../audio/level_complete.wav');
+app.gameOver = new Audio('../audio/game-over.wav');
+app.gameWon = new Audio('../audio/game-win.wav');
 
 /**
  * Generates random numbers between a interval
@@ -73,7 +76,9 @@ app.addLife = function (up) {
             this.pause = true;
             this.gameOverImg();
             $('#gameOverModal').modal(app.modalOptions);
+            app.gameOver.play();
             $('.restart').click(function () {
+                app.gameOver.pause();
                 outsideThis.restartGame();
             });
         }
@@ -86,8 +91,16 @@ app.levelUp = function () {
     this.points += this.LEVEL_UP_POINTS;
 
     //update DOM
+    //$('#level').text('Level ' + this.level);
     $('#level').text('Level ' + this.level);
-    $('#points').text(outsideThis.points + ' points');
+    $('#points').text(outsideThis.points);
+
+    //animation
+    $('.points-wrapper').addClass('animated slideInDown')
+    // wait animation end for remove class
+    window.setTimeout(function () {
+        $('.points-wrapper').removeClass('animated slideInDown ');
+    }, 1000);
 
     //when delete all treasure and lifes didn't get
     this.deleteTreasureAndLifeRemaning();
@@ -121,12 +134,14 @@ app.levelUp = function () {
     }
 
     //if max level came, so the Win Modal is displayed. Player can must choose between start or new game.
-    if (this.level === 40) {
+    if (this.level === 35) {
         this.pause = true;
         $("#winModal").modal(app.modalOptions);
+        app.gameWon.play();
         $("#playAgain").click(function () {
             outsideThis.gameWin();
             outsideThis.restartGame();
+            app.gameWon.pause();
         });
     }
 
@@ -198,7 +213,6 @@ app.startGame = function () {
     outsideThis.loadModalStartFame();
 
     $('.player-option').click(function () {
-
         // to allow only a player selected at moment.
         if (playerSelected != null)
             $(playerSelected).removeClass('player-selected');
@@ -206,6 +220,7 @@ app.startGame = function () {
         outsideThis.player.sprite = ($(this).attr('src')).replace('img', '../img');
         $(this).addClass('player-selected');
         playerSelected = $(this);
+
     });
 
     $('#startButton').off('click').on('click', function () {
@@ -215,7 +230,8 @@ app.startGame = function () {
     });
 
     $('#restartButton').click(function () {
-        outsideThis.loadModalStartFame();
+        outsideThis.loadModalStartFame()
+            ;
     });
 };
 
@@ -233,7 +249,7 @@ app.restartGame = function () {
     //DOM Properties
     //update DOM
     $('#level').text('Level ' + outsideThis.level);
-    $('#points').text(outsideThis.points + ' points');
+    $('#points').text(outsideThis.points);
     var heartElements = $('.life-wrapper').children();
 
     for (var i = 0; i < 3; i++) {
@@ -282,4 +298,5 @@ document.addEventListener('keyup', function (e) {
         app.player.handleInput(allowedKeys[e.keyCode]);
     }
 });
+
 
